@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Job Portal",
   "main": "server.js",
-  "scripts": {
+ "scripts": {
     "start": "nodemon server.js",
-    "dev": "concurrently \"npm run start\" \"cd ../client && npm start\""
+    "postinstall": "npm rebuild bcrypt --build-from-source"
   },
   "author": "Uddhav Bhattarai",
   "license": "ISC",
