@@ -29,7 +29,11 @@ mongoose
   });
 app.use(cookieParser());
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://careersaarathiapp.vercel.app", // Replace with your frontend URL
+  })
+);
 app.use(express.static("uploads")); // Static middleware
 app.use("/uploads", express.static("uploads"));
 app.use(express.json());
