@@ -31,11 +31,12 @@ app.use(cookieParser());
 // Middleware
 app.use(
   cors({
-    origin: "https://careersaarathiapp.vercel.app", // Your frontend URL
-    credentials: true, // Allow credentials (cookies)
+    origin:
+      "https://careersaarathiapp-git-main-uddhavbhattarai10s-projects.vercel.app/", // Your frontend URL
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // Allow cookies to be sent
   })
 );
-
 app.use(express.static("uploads")); // Static middleware
 app.use("/uploads", express.static("uploads"));
 app.use(express.json());

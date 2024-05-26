@@ -113,8 +113,6 @@ exports.login = async (req, res) => {
     res.cookie("authToken", token, {
       expiresIn: 3600000,
       httpOnly: true,
-      secure: true,
-      sameSite: "None",
     }); // 'authToken' is the cookie name
 
     // Find the profile based on the user's role
