@@ -110,8 +110,12 @@ exports.login = async (req, res) => {
     );
 
     // Set the token as a cookie in the response
-    res.cookie("authToken", token, { expiresIn: 3600000, httpOnly: true }); // 'authToken' is the cookie name
-
+    res.cookie("authToken", token, {
+      maxAge: 3600000, // 1 hour in milliseconds
+      httpOnly: true,
+      secure: true, // true if in production
+      sameSite: "strict", // or 'lax' depending on your requirements
+    });
     // Find the profile based on the user's role
     let profile;
     if (user.role === "jobseeker") {
