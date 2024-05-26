@@ -31,8 +31,8 @@ app.use(cookieParser());
 // Middleware
 app.use(
   cors({
-    origin: "https://careersaarathiapp.vercel.app", // Replace with your frontend URL
-    credentials: true, // Allow credentials
+    origin: "https://careersaarathiapp.vercel.app", // Your frontend URL
+    credentials: true, // Allow credentials (cookies)
   })
 );
 app.use(express.static("uploads")); // Static middleware

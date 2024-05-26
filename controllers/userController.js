@@ -85,14 +85,15 @@ exports.login = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Wrong Password" });
     }
-    console.log(user.isVerified);
+
     if (!user.isVerified) {
       return res.status(401).json({
         message:
           "Email not verified. Please check your email for verification instructions.",
-        isVerified: false, // Send a boolean indicating the verification status
+        isVerified: false,
       });
     }
+
     if (user.isBanned) {
       return res.status(401).json({ message: "Your account has been banned." });
     }
@@ -103,9 +104,9 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id, email: user.email, role: user.role },
-      process.env.JWT_SECRET,
+      "your_jwt_secret", // Hardcoded secret
       {
-        expiresIn: process.env.JWT_EXPIRES_IN,
+        expiresIn: "1h", // Token expiration time
       }
     );
 
@@ -116,6 +117,7 @@ exports.login = async (req, res) => {
       secure: true, // true if in production
       sameSite: "strict", // or 'lax' depending on your requirements
     });
+
     // Find the profile based on the user's role
     let profile;
     if (user.role === "jobseeker") {
