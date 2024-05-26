@@ -35,6 +35,7 @@ app.use(
     credentials: true, // Allow credentials (cookies)
   })
 );
+
 app.use(express.static("uploads")); // Static middleware
 app.use("/uploads", express.static("uploads"));
 app.use(express.json());

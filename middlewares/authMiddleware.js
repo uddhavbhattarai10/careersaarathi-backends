@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 function decodeJWT(req, res, next) {
   // Get the token from the request cookies
-  const token = req.localStorage.getItem("authToken");
+  const token = req.cookies.authToken;
 
   // Check if the token is present
   if (!token) {

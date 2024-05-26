@@ -85,15 +85,14 @@ exports.login = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Wrong Password" });
     }
-
+    console.log(user.isVerified);
     if (!user.isVerified) {
       return res.status(401).json({
         message:
           "Email not verified. Please check your email for verification instructions.",
-        isVerified: false,
+        isVerified: false, // Send a boolean indicating the verification status
       });
     }
-
     if (user.isBanned) {
       return res.status(401).json({ message: "Your account has been banned." });
     }
@@ -104,19 +103,19 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id, email: user.email, role: user.role },
-      "your_jwt_secret", // Hardcoded secret
+      process.env.JWT_SECRET,
       {
-        expiresIn: "1h", // Token expiration time
+        expiresIn: process.env.JWT_EXPIRES_IN,
       }
     );
 
     // Set the token as a cookie in the response
     res.cookie("authToken", token, {
-      maxAge: 3600000, // 1 hour in milliseconds
+      expiresIn: 3600000,
       httpOnly: true,
-      secure: true, // true if in production
-      sameSite: "strict", // or 'lax' depending on your requirements
-    });
+      secure: true,
+      sameSite: "None",
+    }); // 'authToken' is the cookie name
 
     // Find the profile based on the user's role
     let profile;
